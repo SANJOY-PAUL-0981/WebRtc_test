@@ -1,0 +1,1 @@
+// Global state (roomId, peer info, call status)
