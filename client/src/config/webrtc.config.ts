@@ -1,1 +1,6 @@
-// ICE server config STUN OR TURN(if needed) URLS
+export const iceConfig = {
+    iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' }
+    ]
+}

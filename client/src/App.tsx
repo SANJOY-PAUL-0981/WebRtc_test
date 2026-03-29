@@ -1,17 +1,21 @@
-import './App.css'
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { useRoom } from './context/RoomContext.js'
+import JoinScreen from './components/JoinScreen.js'
+import WaitingScreen from './components/WaitingScreen.js'
+import CallScreen from './components/CallScreen.js'
+import { useWebRTC } from './hooks/useWebRTC.js'
+import { useSocketListeners } from './hooks/useSocket.js'
 
-import { Landing } from './components/Landing'
-import { Room } from './components/Room'
 function App() {
+  const { callStatus } = useRoom()
+  const { handleSignal } = useWebRTC()
+  useSocketListeners(handleSignal)
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Landing />} />
-        <Route path='/room' element={<Room />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      {callStatus === 'idle' && <JoinScreen />}
+      {callStatus === 'waiting' && <WaitingScreen />}
+      {callStatus === 'in-call' && <CallScreen />}
+    </>
   )
 }
 

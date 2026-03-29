@@ -4,7 +4,6 @@ import {
     createRoom,
     addUserToRoom,
     removeUserFromRoom,
-    getRoomPeer,
     deleteEmptyRoom
 } from "../utils/roomUtils.js";
 
