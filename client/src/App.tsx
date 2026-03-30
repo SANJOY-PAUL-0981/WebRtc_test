@@ -7,14 +7,14 @@ import { useSocketListeners } from './hooks/useSocket.js'
 
 function App() {
   const { callStatus } = useRoom()
-  const { handleSignal } = useWebRTC()
+  const { handleSignal, initConnection, closeConnection  } = useWebRTC()
   useSocketListeners(handleSignal)
 
   return (
     <>
       {callStatus === 'idle' && <JoinScreen />}
       {callStatus === 'waiting' && <WaitingScreen />}
-      {callStatus === 'in-call' && <CallScreen />}
+      {callStatus === 'in-call' && <CallScreen initConnection={initConnection} closeConnection={closeConnection} />}
     </>
   )
 }

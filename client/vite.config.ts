@@ -5,6 +5,11 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: { //ngnix fixes
+    host: '0.0.0.0',  // ← listen on all interfaces
+    port: 5173,
+    allowedHosts: ['unbroke-capacitively-erlene.ngrok-free.dev']
+  },
   plugins: [
     react(),
     tailwindcss(),

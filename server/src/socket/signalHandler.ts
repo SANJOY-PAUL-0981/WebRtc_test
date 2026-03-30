@@ -6,7 +6,6 @@ const singalHandler = (io: Server) => {
         socket.on('signal', async ({ signal }) => {
             try {
                 const peer = await getRoomPeer(socket.id)
-                console.log(signal)
                 if (peer) {
                     io.to(peer.socketId).emit('signal', { signal })
                 }

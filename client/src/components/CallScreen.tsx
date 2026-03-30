@@ -1,17 +1,24 @@
 import { useRef, useEffect } from "react"
 import { useRoom } from "../context/RoomContext.js"
 import { useMedia } from "../hooks/useMedia.js"
-import { useWebRTC } from "../hooks/useWebRTC.js"
 import { useSocket } from "../hooks/useSocket.js"
 
-const CallScreen = () => {
+const CallScreen = ({ initConnection, closeConnection }: {
+    initConnection: (stream: MediaStream) => void
+    closeConnection: () => void
+}) => {
     const { localStream, remoteStream, setCallStatus } = useRoom()
     const { toggleMute, toggleCamera, stopMedia, isMuted, isCameraOff } = useMedia()
-    const { closeConnection } = useWebRTC()
     const { emitLeave } = useSocket()
 
     const localVideoRef = useRef<HTMLVideoElement>(null)
     const remoteVideoRef = useRef<HTMLVideoElement>(null)
+
+    useEffect(() => {
+        if (localStream) {
+            initConnection(localStream)
+        }
+    }, [])
 
     useEffect(() => {
         if (localStream && localVideoRef.current) {
@@ -35,7 +42,7 @@ const CallScreen = () => {
     return (
         <div className="flex h-screen w-screen bg-black justify-center items-center gap-4">
             <video ref={localVideoRef} autoPlay playsInline className="w-1/3 rounded-xl" />
-            <video ref={remoteVideoRef} autoPlay playsInline  className="w-1/3 rounded-xl" />
+            <video ref={remoteVideoRef} autoPlay playsInline className="w-1/3 rounded-xl" />
 
             <div className="absolute bottom-6 flex gap-4">
                 <button

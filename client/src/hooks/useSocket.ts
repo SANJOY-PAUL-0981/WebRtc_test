@@ -3,7 +3,8 @@ import type { SignalData } from '../types/index.js';
 import { useEffect } from 'react';
 import { useRoom } from '../context/RoomContext.js';
 
-const socket = io('http://localhost:3000')
+const socket = io('http://localhost:3000') //this for local use
+//const socket = io(window.location.origin) //this for the ngnix setup
 
 // call anywhere for emits
 export const useSocket = () => {
