@@ -59,11 +59,17 @@ export const useWebRTC = () => {
         }
     }
 
+    const swapStream = (newStream: MediaStream) => {
+        const videoTrack = newStream.getVideoTracks()[0]
+        const sender = pc.current?.getSenders().find(s => s.track?.kind === 'video')
+        sender?.replaceTrack(videoTrack)
+    }
+
     const closeConnection = () => {
         pc.current?.close()
         pc.current = null
         setRemoteStream(null)
     }
 
-    return { initConnection, handleSignal, closeConnection }
+    return { initConnection, handleSignal, closeConnection, swapStream }
 }

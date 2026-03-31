@@ -15,4 +15,10 @@ export default defineConfig({
     tailwindcss(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  /*optimizeDeps: {
+    exclude: ['@mediapipe/face_mesh', '@mediapipe/hands']
+  },
+  ssr: {
+    noExternal: ['@mediapipe/face_mesh', '@mediapipe/hands']
+  }*/
 })
